@@ -1,0 +1,13 @@
+word = input()
+l = list(word)
+l = list(map(int, l))
+print("max_digit", max(l))
+print("min_digit", min(l))
+ 
+Medium:
+string1: "malyalam"
+string2: "lyamaaml"
+(anagram --):
+    1. both strings should be of same length 
+    2. all characters present in string-1 should be present in string-2 
+ 
