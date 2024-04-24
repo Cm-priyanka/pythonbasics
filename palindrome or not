@@ -1,0 +1,6 @@
+word = input()
+reverseword = word[::-1]
+if word == reverseword:
+      print("palindrome")
+ else:
+      print("not apalindrome")
