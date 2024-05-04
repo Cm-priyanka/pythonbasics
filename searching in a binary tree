@@ -1,0 +1,58 @@
+class TreeNode:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+class BST:
+    def __init__(self):
+        self.root = None
+
+    def insert(self, value):
+        if not self.root:
+            self.root = TreeNode(value)
+        else:
+            self._insert_recursively(self.root, value)
+
+    def _insert_recursively(self, node, value):
+        if value < node.value:
+            if node.left is None:
+                node.left = TreeNode(value)
+            else:
+                self._insert_recursively(node.left, value)
+        elif value > node.value:
+            if node.right is None:
+                node.right = TreeNode(value)
+            else:
+                self._insert_recursively(node.right, value)
+
+    def search(self, target):
+        return self._search_recursively(self.root, target)
+
+    def _search_recursively(self, node, target):
+        if node is None:
+            return False
+        if node.value == target:
+            return True
+        elif target < node.value:
+            return self._search_recursively(node.left, target)
+        else:
+            return self._search_recursively(node.right, target)
+
+# Function to construct BST from a list of numbers
+def construct_bst(numbers):
+    bst = BST()
+    for num in numbers:
+        bst.insert(num)
+    return bst
+
+# Input format
+if __name__ == "__main__":
+    n = int(input())  # Number of elements in the list
+    numbers = list(map(int, input().split()))  # List of numbers
+    target = int(input())  # Target element to search
+    bst = construct_bst(numbers)
+    if bst.search(target):
+        print("Target element is found ")
+    else:
+        print("Target element is not found ")
