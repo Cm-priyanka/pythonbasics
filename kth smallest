@@ -1,0 +1,61 @@
+class TreeNode:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+class BST:
+    def __init__(self):
+        self.root = None
+        self.kth_smallest = None
+        self.count = 0
+
+    def insert(self, value):
+        if not self.root:
+            self.root = TreeNode(value)
+        else:
+            self._insert_recursively(self.root, value)
+
+    def _insert_recursively(self, node, value):
+        if value < node.value:
+            if node.left is None:
+                node.left = TreeNode(value)
+            else:
+                self._insert_recursively(node.left, value)
+        elif value > node.value:
+            if node.right is None:
+                node.right = TreeNode(value)
+            else:
+                self._insert_recursively(node.right, value)
+
+    def find_kth_smallest(self, k):
+        self._inorder_traversal(self.root, k)
+        return self.kth_smallest
+
+    def _inorder_traversal(self, node, k):
+        if node is None:
+            return
+        self._inorder_traversal(node.left, k)
+        self.count += 1
+        if self.count == k:
+            self.kth_smallest = node.value
+            return
+        self._inorder_traversal(node.right, k)
+
+# Function to construct BST from a list of numbers
+def construct_bst(elements):
+    bst = BST()
+    for num in elements:
+        bst.insert(num)
+    return bst
+
+# Input format
+if __name__ == "__main__":
+    k = map(int, input().split())  # Number of elements, k
+    elements = list(map(int, input().split()))  # List of elements
+    bst = construct_bst(elements)
+    kth_smallest = bst.find_kth_smallest(k)
+    if kth_smallest is not None:
+        print("Kth smallest element:", kth_smallest)
+    else:
+        print("1")
